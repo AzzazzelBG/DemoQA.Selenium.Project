@@ -6,10 +6,11 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace DemoQA.Selenium.Tests
 {
-    //[TestFixture(typeof(FirefoxDriver))]
+    [TestFixture(typeof(FirefoxDriver))]
     [TestFixture(typeof(ChromeDriver))]
     public class RegistrationPageTests<TWebDriver> where TWebDriver : IWebDriver, new()
     {
@@ -51,6 +52,28 @@ namespace DemoQA.Selenium.Tests
             
             registrationPage.NavigateTo();
             registrationPage.FillRegistrationFormMandatoryData(user);
+
+            registrationPage.AssesrtSuccessMessage("Thanks for submitting the form");
+        }
+
+        [Test]
+        public void StudentCannotRegisterWithoutPhoneNumber()
+        {
+            var registrationPage = new RegistrationPage(Driver);
+            RegistrationUser user = new RegistrationUser("FirstName",
+                                                         "LastName",
+                                                         "someone@google.com",
+                                                         1,
+                                                         "",
+                                                         "21.04.21",
+                                                         "Some current address in some city");
+
+            registrationPage.NavigateTo();
+            registrationPage.FillRegistrationFormMandatoryData(user);
+
+            Thread.Sleep(1000);
+
+            registrationPage.AssertMobileNumberFieldRequiresValidData("rgb(220, 53, 69)");
         }
     }
 }

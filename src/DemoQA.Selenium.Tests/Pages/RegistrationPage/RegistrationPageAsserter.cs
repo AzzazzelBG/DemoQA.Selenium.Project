@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace DemoQA.Selenium.Tests.Pages.RegistrationPage
@@ -16,6 +17,13 @@ namespace DemoQA.Selenium.Tests.Pages.RegistrationPage
         {
             Assert.IsTrue(page.SuccessMessage.Displayed);
             Assert.AreEqual(text, page.SuccessMessage.Text);
+        }
+
+        public static void AssertMobileNumberFieldRequiresValidData(this RegistrationPage page, string color)
+        {
+            string borderColor = page.PhoneNumber.GetCssValue("border-color");
+
+            Assert.AreEqual(color, borderColor);
         }
     }
 }

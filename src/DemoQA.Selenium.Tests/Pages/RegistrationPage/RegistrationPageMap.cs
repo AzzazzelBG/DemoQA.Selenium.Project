@@ -26,5 +26,14 @@ namespace DemoQA.Selenium.Tests.Pages.RegistrationPage
         public IWebElement CurrentAddres => Driver.FindElement(By.Id("currentAddress"));
 
         public IWebElement SubmitButton => Driver.FindElement(By.Id("submit"));
+
+        public IWebElement SuccessMessage
+        {
+            get
+            {
+                this.Wait.Until(ExpectedConditions.ElementExists(By.ClassName("modal-header")));
+                return this.Driver.FindElement(By.ClassName("modal-header"));
+            }
+        }
     }
 }
