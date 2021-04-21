@@ -11,5 +11,11 @@ namespace DemoQA.Selenium.Tests.Pages.RegistrationPage
         {
             Assert.AreEqual(text, registrationPage.Title.Text);
         }
+
+        public static void AssesrtSuccessMessage(this RegistrationPage page, string text)
+        {
+            Assert.IsTrue(page.SuccessMessage.Displayed);
+            Assert.AreEqual(text, page.SuccessMessage.Text);
+        }
     }
 }
