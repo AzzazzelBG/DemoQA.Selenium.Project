@@ -1,12 +1,13 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace DemoQA.Selenium.Tests.Pages.RegistrationPage
 {
+    /// <summary>
+    /// In this partial class are stored the locators for all elements needed for the tests
+    /// </summary>
     public partial class RegistrationPage
     {
         public IWebElement Title => Driver.FindElement(By.ClassName("main-header"));

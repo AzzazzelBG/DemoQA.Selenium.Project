@@ -1,11 +1,10 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace DemoQA.Selenium.Tests.Pages.RegistrationPage
 {
+    /// <summary>
+    /// The class contains custom Asserters for the RegistrationPage class in order to make them tracible and reduce the code in the test class
+    /// </summary>
     public static class RegistrationPageAsserter
     {
         public static void AssertPracticeFormIsOpened(this RegistrationPage registrationPage, string text)
@@ -19,7 +18,7 @@ namespace DemoQA.Selenium.Tests.Pages.RegistrationPage
             Assert.AreEqual(text, page.SuccessMessage.Text);
         }
 
-        public static void AssertMobileNumberFieldRequiresValidData(this RegistrationPage page, string color)
+        public static void AssertMobileNumberFieldRequiresValidDataChrome(this RegistrationPage page, string color)
         {
             string borderColor = page.PhoneNumber.GetCssValue("border-color");
 

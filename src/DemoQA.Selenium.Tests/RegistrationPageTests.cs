@@ -19,6 +19,7 @@ namespace DemoQA.Selenium.Tests
         [SetUp]
         public void Setup()
         {
+            //These parameters are set for the Firefox Driver in oreder to avoid slow execution of the driver
             if (typeof(TWebDriver) == typeof(FirefoxDriver))
             {
                 var service = FirefoxDriverService.CreateDefaultService();
@@ -38,8 +39,8 @@ namespace DemoQA.Selenium.Tests
                 Driver.Quit();
         }
 
-        [Test]
-        public void NavigateToRegistrationPage()
+        [Test, Order(1)]
+        public void Navigate_To_Registration_Page()
         {
             var registrationPage = new RegistrationPage(Driver);
             registrationPage.NavigateTo();
@@ -47,33 +48,35 @@ namespace DemoQA.Selenium.Tests
             registrationPage.AssertPracticeFormIsOpened("Practice Form");
         }
 
-        [Test]
-        public void RegisterMandatoryFieldsWithValidData()
+        [Test, Order(2)]
+        [TestCase("FirstName", "LastName", "someone@google.com", 1, "0123456789", "Some current address in some city")]
+        public void Register_Mandatory_Fields_With_Valid_Data(string firstName, string lastName, string email, int genderIndex, string phoneNumber, string currentAddres)
         {
             var registrationPage = new RegistrationPage(Driver);
-            RegistrationUser user = new RegistrationUser("FirstName",
-                                                         "LastName",
-                                                         "someone@google.com",
-                                                         1,
-                                                         "0123456789",
-                                                         "Some current address in some city");
-            
+            RegistrationUser user = new RegistrationUser(firstName,
+                                                         lastName,
+                                                         email,
+                                                         genderIndex,
+                                                         phoneNumber,
+                                                         currentAddres);
+
             registrationPage.NavigateTo();
             registrationPage.FillRegistrationFormMandatoryData(user);
 
             registrationPage.AssesrtSuccessMessage("Thanks for submitting the form");
         }
 
-        [Test]
-        public void StudentCannotRegisterWithoutPhoneNumber()
+        [Test, Order(3)]
+        [TestCase("FirstName", "LastName", "someone@google.com", 1, "", "Some current address in some city")]
+        public void Student_Cannot_Register_Without_Phone_Number(string firstName, string lastName, string email, int genderIndex, string phoneNumber, string currentAddres)
         {
             var registrationPage = new RegistrationPage(Driver);
-            RegistrationUser user = new RegistrationUser("FirstName",
-                                                         "LastName",
-                                                         "someone@google.com",
-                                                         1,
-                                                         "",
-                                                         "Some current address in some city");
+            RegistrationUser user = new RegistrationUser(firstName,
+                                                         lastName,
+                                                         email,
+                                                         genderIndex,
+                                                         phoneNumber,
+                                                         currentAddres);
 
             registrationPage.NavigateTo();
             registrationPage.FillRegistrationFormMandatoryData(user);
@@ -82,13 +85,15 @@ namespace DemoQA.Selenium.Tests
 
             IWebElement element = Driver.FindElement(By.Id("userNumber"));
 
+            //Having two different Assert methods for both drivers is because the FirefoxDriver finds the color 
+            //by different way which is not applicable for ChromDriver
             if(typeof(TWebDriver) == typeof(FirefoxDriver))
             {
                 registrationPage.AssertMobileNumbeFielRequiresValidDataFirefox("rgb(220, 53, 69)");
             }
             else
             {
-                registrationPage.AssertMobileNumberFieldRequiresValidData("rgb(220, 53, 69)");
+                registrationPage.AssertMobileNumberFieldRequiresValidDataChrome("rgb(220, 53, 69)");
             }
             
         }

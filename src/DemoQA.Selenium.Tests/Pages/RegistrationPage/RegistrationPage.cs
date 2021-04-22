@@ -1,13 +1,14 @@
 ﻿using DemoQA.Selenium.Tests.Models;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DemoQA.Selenium.Tests.Pages.RegistrationPage
 {
     public partial class RegistrationPage : BasePage
     {
+        /// <summary>
+        /// The class contains specific actions related to the Registration page
+        /// </summary>
+        /// <param name="driver"></param>
         public RegistrationPage(IWebDriver driver)
             : base(driver)
         {
@@ -27,18 +28,6 @@ namespace DemoQA.Selenium.Tests.Pages.RegistrationPage
             Type(PhoneNumber, user.PhoneNumber);
             Type(CurrentAddres, user.CurrentAddres);
             SubmitButton.Click();
-        }
-        private void ClickOnElement(IWebElement element)
-        {
-            var javaScriptExecutor = (IJavaScriptExecutor)Driver;
-
-            javaScriptExecutor.ExecuteScript("arguments[0].click()", element);
-        }
-
-        private void Type(IWebElement element, string text)
-        {
-            element.Clear();
-            element.SendKeys(text);
         }
     }
 }

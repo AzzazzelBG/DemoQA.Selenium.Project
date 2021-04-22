@@ -8,6 +8,7 @@ namespace DemoQA.Selenium.Tests.Pages
 {
     public abstract class BasePage
     {
+        //The Base class where webdriver is initialized and some common functionalities are added
         public BasePage(IWebDriver driver)
         {
             Driver = driver;
@@ -18,6 +19,19 @@ namespace DemoQA.Selenium.Tests.Pages
         public IWebDriver Driver { get; set; }
 
         public WebDriverWait Wait { get; set; }
+
+        public void ClickOnElement(IWebElement element)
+        {
+            var javaScriptExecutor = (IJavaScriptExecutor)Driver;
+
+            javaScriptExecutor.ExecuteScript("arguments[0].click()", element);
+        }
+
+        public void Type(IWebElement element, string text)
+        {
+            element.Clear();
+            element.SendKeys(text);
+        }
 
         public void Dispose()
         {
