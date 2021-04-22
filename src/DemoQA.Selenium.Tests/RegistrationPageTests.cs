@@ -19,7 +19,16 @@ namespace DemoQA.Selenium.Tests
         [SetUp]
         public void Setup()
         {
-            Driver = new TWebDriver();
+            if (typeof(TWebDriver) == typeof(FirefoxDriver))
+            {
+                var service = FirefoxDriverService.CreateDefaultService();
+                service.Host = "::1";
+                Driver = new FirefoxDriver(service);
+            }
+            else
+            {
+                Driver = new ChromeDriver();
+            }
         }
 
         [TearDown]
@@ -47,7 +56,6 @@ namespace DemoQA.Selenium.Tests
                                                          "someone@google.com",
                                                          1,
                                                          "0123456789",
-                                                         "21.04.21",
                                                          "Some current address in some city");
             
             registrationPage.NavigateTo();
@@ -65,7 +73,6 @@ namespace DemoQA.Selenium.Tests
                                                          "someone@google.com",
                                                          1,
                                                          "",
-                                                         "21.04.21",
                                                          "Some current address in some city");
 
             registrationPage.NavigateTo();
@@ -73,7 +80,17 @@ namespace DemoQA.Selenium.Tests
 
             Thread.Sleep(1000);
 
-            registrationPage.AssertMobileNumberFieldRequiresValidData("rgb(220, 53, 69)");
+            IWebElement element = Driver.FindElement(By.Id("userNumber"));
+
+            if(typeof(TWebDriver) == typeof(FirefoxDriver))
+            {
+                registrationPage.AssertMobileNumbeFielRequiresValidDataFirefox("rgb(220, 53, 69)");
+            }
+            else
+            {
+                registrationPage.AssertMobileNumberFieldRequiresValidData("rgb(220, 53, 69)");
+            }
+            
         }
     }
 }

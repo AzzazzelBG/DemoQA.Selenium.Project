@@ -25,5 +25,12 @@ namespace DemoQA.Selenium.Tests.Pages.RegistrationPage
 
             Assert.AreEqual(color, borderColor);
         }
+
+        public static void AssertMobileNumbeFielRequiresValidDataFirefox(this RegistrationPage page, string color)
+        {
+            string borderColor = page.PhoneNumber.GetCssValue("border-bottom-color");
+
+            Assert.AreEqual(color, borderColor);
+        }
     }
 }
