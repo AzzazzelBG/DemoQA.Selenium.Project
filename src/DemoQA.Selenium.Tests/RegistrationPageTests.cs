@@ -4,8 +4,6 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace DemoQA.Selenium.Tests

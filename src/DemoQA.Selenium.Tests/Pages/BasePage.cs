@@ -33,6 +33,19 @@ namespace DemoQA.Selenium.Tests.Pages
             element.SendKeys(text);
         }
 
+        public IWebElement GetClickableElement(By locator)
+        {
+            Wait.Until(d =>
+            {
+                IWebElement e = d.FindElement(locator);
+                return e.Displayed && e.Enabled;
+            }
+            );
+
+            IWebElement element = Driver.FindElement(locator);
+            return element;
+        }
+
         public void Dispose()
         {
             Driver.Dispose();
