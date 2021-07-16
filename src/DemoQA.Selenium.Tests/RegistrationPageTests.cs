@@ -47,8 +47,8 @@ namespace DemoQA.Selenium.Tests
         }
 
         [Test, Order(2)]
-        [TestCase("FirstName", "LastName", "someone@google.com", 1, "0123456789", "Some current address in some city")]
-        public void Register_Mandatory_Fields_With_Valid_Data(string firstName, string lastName, string email, int genderIndex, string phoneNumber, string currentAddres)
+        [TestCase("FirstName", "LastName", "someone@google.com", 1, "0123456789", "10.10.2020", "Some current address in some city")]
+        public void Register_Mandatory_Fields_With_Valid_Data(string firstName, string lastName, string email, int genderIndex, string phoneNumber, string dateOfBirth, string currentAddres)
         {
             var registrationPage = new RegistrationPage(Driver);
             RegistrationUser user = new RegistrationUser(firstName,
@@ -56,6 +56,7 @@ namespace DemoQA.Selenium.Tests
                                                          email,
                                                          genderIndex,
                                                          phoneNumber,
+                                                         dateOfBirth,
                                                          currentAddres);
 
             registrationPage.NavigateTo();
@@ -65,8 +66,8 @@ namespace DemoQA.Selenium.Tests
         }
 
         [Test, Order(3)]
-        [TestCase("FirstName", "LastName", "someone@google.com", 1, "", "Some current address in some city")]
-        public void Student_Cannot_Register_Without_Phone_Number(string firstName, string lastName, string email, int genderIndex, string phoneNumber, string currentAddres)
+        [TestCase("FirstName", "LastName", "someone@google.com", 1, "", "10.10.2020", "Some current address in some city")]
+        public void Student_Cannot_Register_Without_Phone_Number(string firstName, string lastName, string email, int genderIndex, string phoneNumber, string dateOfBirth, string currentAddres)
         {
             var registrationPage = new RegistrationPage(Driver);
             RegistrationUser user = new RegistrationUser(firstName,
@@ -74,6 +75,7 @@ namespace DemoQA.Selenium.Tests
                                                          email,
                                                          genderIndex,
                                                          phoneNumber,
+                                                         dateOfBirth,
                                                          currentAddres);
 
             registrationPage.NavigateTo();

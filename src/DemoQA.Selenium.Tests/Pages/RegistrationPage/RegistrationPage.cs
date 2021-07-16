@@ -26,8 +26,9 @@ namespace DemoQA.Selenium.Tests.Pages.RegistrationPage
             Type(Email, user.Email);
             ClickOnElement(Genders[user.GenderIndex]);
             Type(PhoneNumber, user.PhoneNumber);
+            Type(DataOfBirth, user.DateOfBirth);
             Type(CurrentAddres, user.CurrentAddres);
-            SubmitButton.Click();
+            ClickOnElement(SubmitButton);
         }
     }
 }

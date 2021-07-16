@@ -29,7 +29,7 @@ namespace DemoQA.Selenium.Tests.Pages
 
         public void Type(IWebElement element, string text)
         {
-            element.Clear();
+            element.SendKeys(Keys.Control + "A");
             element.SendKeys(text);
         }
 

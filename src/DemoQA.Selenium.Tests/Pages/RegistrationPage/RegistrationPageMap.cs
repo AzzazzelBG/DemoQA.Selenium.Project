@@ -10,31 +10,24 @@ namespace DemoQA.Selenium.Tests.Pages.RegistrationPage
     /// </summary>
     public partial class RegistrationPage
     {
-        public IWebElement Title => Driver.FindElement(By.ClassName("main-header"));
+        public IWebElement Title => GetClickableElement(By.ClassName("main-header"));
 
-        public IWebElement FirstName => Driver.FindElement(By.Id("firstName"));
+        public IWebElement FirstName => GetClickableElement(By.Id("firstName"));
 
-        public IWebElement LastName => Driver.FindElement(By.Id("lastName"));
+        public IWebElement LastName => GetClickableElement(By.Id("lastName"));
 
-        public IWebElement Email => Driver.FindElement(By.Id("userEmail"));
+        public IWebElement Email => GetClickableElement(By.Id("userEmail"));
 
         public List<IWebElement> Genders => Driver.FindElements(By.Name("gender")).ToList();
 
-        public IWebElement PhoneNumber => Driver.FindElement(By.Id("userNumber"));
+        public IWebElement PhoneNumber => GetClickableElement(By.Id("userNumber"));
 
-        public IWebElement DataOfBirth => Driver.FindElement(By.Id("dateOfBirthInput"));
+        public IWebElement DataOfBirth => GetClickableElement(By.Id("dateOfBirthInput"));
 
-        public IWebElement CurrentAddres => Driver.FindElement(By.Id("currentAddress"));
+        public IWebElement CurrentAddres => GetClickableElement(By.Id("currentAddress"));
 
-        public IWebElement SubmitButton => Driver.FindElement(By.Id("submit"));
+        public IWebElement SubmitButton => GetClickableElement(By.Id("submit"));
 
-        public IWebElement SuccessMessage
-        {
-            get
-            {
-                this.Wait.Until(ExpectedConditions.ElementExists(By.ClassName("modal-header")));
-                return this.Driver.FindElement(By.ClassName("modal-header"));
-            }
-        }
+        public IWebElement SuccessMessage => GetClickableElement(By.ClassName("modal-header"));
     }
 }

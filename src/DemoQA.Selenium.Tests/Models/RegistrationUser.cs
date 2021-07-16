@@ -12,6 +12,7 @@ namespace DemoQA.Selenium.Tests.Models
                                 string email,
                                 int genderIndex,
                                 string phoneNumber,
+                                string dateOfBirth,
                                 string currentAddres)
         {
             FirstName = firstName;
@@ -19,6 +20,7 @@ namespace DemoQA.Selenium.Tests.Models
             Email = email;
             GenderIndex = genderIndex;
             PhoneNumber = phoneNumber;
+            DateOfBirth = dateOfBirth;
             CurrentAddres = currentAddres;
         }
 
@@ -31,6 +33,8 @@ namespace DemoQA.Selenium.Tests.Models
         public int GenderIndex { get; set; }
 
         public string PhoneNumber { get; set; }
+
+        public string DateOfBirth { get; set; }
 
         public string CurrentAddres { get; set; }
     }
