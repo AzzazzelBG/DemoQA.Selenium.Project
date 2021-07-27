@@ -13,6 +13,7 @@ namespace DemoQA.Selenium.Tests
     public class RegistrationPageTests<TWebDriver> where TWebDriver : IWebDriver, new()
     {
         public IWebDriver Driver;
+        private RegistrationPage RegistrationPage => new RegistrationPage(Driver);
         
         [SetUp]
         public void Setup()
@@ -40,17 +41,15 @@ namespace DemoQA.Selenium.Tests
         [Test, Order(1)]
         public void Navigate_To_Registration_Page()
         {
-            var registrationPage = new RegistrationPage(Driver);
-            registrationPage.NavigateTo();
+            RegistrationPage.NavigateTo();
 
-            registrationPage.AssertPracticeFormIsOpened("Practice Form");
+            RegistrationPage.AssertPracticeFormIsOpened("Practice Form");
         }
 
         [Test, Order(2)]
         [TestCase("FirstName", "LastName", "someone@google.com", 1, "0123456789", "10.10.2020", "Some current address in some city")]
         public void Register_Mandatory_Fields_With_Valid_Data(string firstName, string lastName, string email, int genderIndex, string phoneNumber, string dateOfBirth, string currentAddres)
         {
-            var registrationPage = new RegistrationPage(Driver);
             RegistrationUser user = new RegistrationUser(firstName,
                                                          lastName,
                                                          email,
@@ -59,17 +58,16 @@ namespace DemoQA.Selenium.Tests
                                                          dateOfBirth,
                                                          currentAddres);
 
-            registrationPage.NavigateTo();
-            registrationPage.FillRegistrationFormMandatoryData(user);
+            RegistrationPage.NavigateTo();
+            RegistrationPage.FillRegistrationFormMandatoryData(user);
 
-            registrationPage.AssesrtSuccessMessage("Thanks for submitting the form");
+            RegistrationPage.AssesrtSuccessMessage("Thanks for submitting the form");
         }
 
         [Test, Order(3)]
         [TestCase("FirstName", "LastName", "someone@google.com", 1, "", "10.10.2020", "Some current address in some city")]
         public void Student_Cannot_Register_Without_Phone_Number(string firstName, string lastName, string email, int genderIndex, string phoneNumber, string dateOfBirth, string currentAddres)
         {
-            var registrationPage = new RegistrationPage(Driver);
             RegistrationUser user = new RegistrationUser(firstName,
                                                          lastName,
                                                          email,
@@ -78,22 +76,20 @@ namespace DemoQA.Selenium.Tests
                                                          dateOfBirth,
                                                          currentAddres);
 
-            registrationPage.NavigateTo();
-            registrationPage.FillRegistrationFormMandatoryData(user);
+            RegistrationPage.NavigateTo();
+            RegistrationPage.FillRegistrationFormMandatoryData(user);
 
             Thread.Sleep(1000);
-
-            IWebElement element = Driver.FindElement(By.Id("userNumber"));
 
             //Having two different Assert methods for both drivers is because the FirefoxDriver finds the color 
             //by different way which is not applicable for ChromDriver
             if(typeof(TWebDriver) == typeof(FirefoxDriver))
             {
-                registrationPage.AssertMobileNumbeFielRequiresValidDataFirefox("rgb(220, 53, 69)");
+                RegistrationPage.AssertMobileNumbeFielRequiresValidDataFirefox("rgb(220, 53, 69)");
             }
             else
             {
-                registrationPage.AssertMobileNumberFieldRequiresValidDataChrome("rgb(220, 53, 69)");
+                RegistrationPage.AssertMobileNumberFieldRequiresValidDataChrome("rgb(220, 53, 69)");
             }
             
         }
