@@ -61,12 +61,14 @@ namespace DemoQA.Selenium.Tests
             RegistrationPage.NavigateTo();
             RegistrationPage.FillRegistrationFormMandatoryData(user);
 
-            RegistrationPage.AssesrtSuccessMessage("Thanks for submitting the form");
+            RegistrationPage.AssesrtForSuccessfulSubmition();
         }
 
         [Test, Order(3)]
+        [TestCase("", "LastName", "someone@google.com", 1, "0123456789", "10.10.2020", "Some current address in some city")]
+        [TestCase("FirstName", "", "someone@google.com", 1, "0123456789", "10.10.2020", "Some current address in some city")]
         [TestCase("FirstName", "LastName", "someone@google.com", 1, "", "10.10.2020", "Some current address in some city")]
-        public void Student_Cannot_Register_Without_Phone_Number(string firstName, string lastName, string email, int genderIndex, string phoneNumber, string dateOfBirth, string currentAddres)
+        public void Student_Cannot_Register_Without_Requred_Fields(string firstName, string lastName, string email, int genderIndex, string phoneNumber, string dateOfBirth, string currentAddres)
         {
             RegistrationUser user = new RegistrationUser(firstName,
                                                          lastName,
@@ -81,16 +83,7 @@ namespace DemoQA.Selenium.Tests
 
             Thread.Sleep(1000);
 
-            //Having two different Assert methods for both drivers is because the FirefoxDriver finds the color 
-            //by different way which is not applicable for ChromDriver
-            if(typeof(TWebDriver) == typeof(FirefoxDriver))
-            {
-                RegistrationPage.AssertMobileNumbeFielRequiresValidDataFirefox("rgb(220, 53, 69)");
-            }
-            else
-            {
-                RegistrationPage.AssertMobileNumberFieldRequiresValidDataChrome("rgb(220, 53, 69)");
-            }
+            RegistrationPage.AssertRequiredFieldsAreEmpty();
             
         }
     }

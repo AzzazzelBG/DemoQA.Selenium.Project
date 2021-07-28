@@ -12,24 +12,15 @@ namespace DemoQA.Selenium.Tests.Pages.RegistrationPage
             Assert.AreEqual(text, registrationPage.Title.Text);
         }
 
-        public static void AssesrtSuccessMessage(this RegistrationPage page, string text)
+        public static void AssesrtForSuccessfulSubmition(this RegistrationPage page)
         {
             Assert.IsTrue(page.SuccessMessage.Displayed);
-            Assert.AreEqual(text, page.SuccessMessage.Text);
+            Assert.AreEqual("Thanks for submitting the form", page.SuccessMessage.Text);
         }
 
-        public static void AssertMobileNumberFieldRequiresValidDataChrome(this RegistrationPage page, string color)
+        public static void AssertRequiredFieldsAreEmpty(this RegistrationPage page)
         {
-            string borderColor = page.PhoneNumber.GetCssValue("border-color");
-
-            Assert.AreEqual(color, borderColor);
-        }
-
-        public static void AssertMobileNumbeFielRequiresValidDataFirefox(this RegistrationPage page, string color)
-        {
-            string borderColor = page.PhoneNumber.GetCssValue("border-bottom-color");
-
-            Assert.AreEqual(color, borderColor);
+            Assert.IsTrue(page.AreRequiredFieldsEmpty());
         }
     }
 }

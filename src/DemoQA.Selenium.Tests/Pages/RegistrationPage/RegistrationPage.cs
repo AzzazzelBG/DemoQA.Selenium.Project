@@ -30,5 +30,19 @@ namespace DemoQA.Selenium.Tests.Pages.RegistrationPage
             Type(CurrentAddres, user.CurrentAddres);
             ClickOnElement(SubmitButton);
         }
+
+        public bool AreRequiredFieldsEmpty()
+        {
+            try
+            {
+               bool element = Driver.FindElement(By.CssSelector("input.form-control:invalid")).Displayed;
+               return element;
+            }
+            catch
+            {
+
+                return false;
+            }
+        }
     }
 }
