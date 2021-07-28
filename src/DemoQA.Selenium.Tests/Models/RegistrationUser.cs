@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DemoQA.Selenium.Tests.Models
+﻿namespace DemoQA.Selenium.Tests.Models
 {
     public class RegistrationUser
     {

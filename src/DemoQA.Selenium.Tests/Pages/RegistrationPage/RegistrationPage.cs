@@ -1,5 +1,6 @@
 ﻿using DemoQA.Selenium.Tests.Models;
 using OpenQA.Selenium;
+using System.Collections.Generic;
 
 namespace DemoQA.Selenium.Tests.Pages.RegistrationPage
 {
@@ -43,6 +44,11 @@ namespace DemoQA.Selenium.Tests.Pages.RegistrationPage
 
                 return false;
             }
+        }
+
+        public void SelectCheckboxes(List<bool> selectConditions)
+        {
+            SelectSpecificCheckboxes(this.HobbieCheckboxes, selectConditions);
         }
     }
 }

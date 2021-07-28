@@ -1,5 +1,4 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -29,5 +28,7 @@ namespace DemoQA.Selenium.Tests.Pages.RegistrationPage
         public IWebElement SubmitButton => GetClickableElement(By.Id("submit"));
 
         public IWebElement SuccessMessage => GetClickableElement(By.ClassName("modal-header"));
+
+        public List<IWebElement> HobbieCheckboxes => Driver.FindElements(By.XPath("//input[@type='checkbox']")).ToList();
     }
 }

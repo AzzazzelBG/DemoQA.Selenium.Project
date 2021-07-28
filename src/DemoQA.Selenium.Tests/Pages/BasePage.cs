@@ -1,8 +1,8 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DemoQA.Selenium.Tests.Pages
 {
@@ -44,6 +44,19 @@ namespace DemoQA.Selenium.Tests.Pages
 
             IWebElement element = Driver.FindElement(locator);
             return element;
+        }
+
+        public void SelectSpecificCheckboxes(List<IWebElement> elements, List<bool> selectConditions)
+        {
+            for (int i = 0; i < selectConditions.Count; i++)
+            {
+                if (selectConditions[i])
+                {
+                    Actions action = new Actions(Driver);
+
+                    action.MoveToElement(elements[i]).Click().Perform();
+                }
+            }
         }
 
         public void Dispose()

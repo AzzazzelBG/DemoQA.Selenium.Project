@@ -4,6 +4,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace DemoQA.Selenium.Tests
@@ -85,6 +86,18 @@ namespace DemoQA.Selenium.Tests
 
             RegistrationPage.AssertRequiredFieldsAreEmpty();
             
+        }
+
+        [Test, Order(4)]
+        public void Hobbie_Checkboxes_Can_Be_Selected()
+        {
+            //Values in the list represents the 3 checkboxes from left to right and if the value is true the represented checkbox will be selected
+            List<bool> checkboxForSelection = new List<bool>(new bool[] { true, true, false });
+
+            RegistrationPage.NavigateTo();
+            RegistrationPage.SelectCheckboxes(checkboxForSelection);
+
+            RegistrationPage.AssertCheckboxesAreSelected(checkboxForSelection);
         }
     }
 }

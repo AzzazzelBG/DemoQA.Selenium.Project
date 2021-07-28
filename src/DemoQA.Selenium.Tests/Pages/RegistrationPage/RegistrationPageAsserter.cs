@@ -1,4 +1,6 @@
 ﻿using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DemoQA.Selenium.Tests.Pages.RegistrationPage
 {
@@ -21,6 +23,25 @@ namespace DemoQA.Selenium.Tests.Pages.RegistrationPage
         public static void AssertRequiredFieldsAreEmpty(this RegistrationPage page)
         {
             Assert.IsTrue(page.AreRequiredFieldsEmpty());
+        }
+
+        public static void AssertCheckboxesAreSelected(this RegistrationPage page, List<bool> selectConditions)
+        {
+            List<bool> selectedCheckboxes = new List<bool>();
+
+            for (int i = 0; i < page.HobbieCheckboxes.Count; i++)
+            {
+                if (page.HobbieCheckboxes[i].Selected)
+                {
+                    selectedCheckboxes.Add(true);
+                }
+                else
+                {
+                    selectedCheckboxes.Add(false);
+                }
+            }
+
+            Assert.True(Enumerable.SequenceEqual(selectedCheckboxes, selectConditions));
         }
     }
 }
